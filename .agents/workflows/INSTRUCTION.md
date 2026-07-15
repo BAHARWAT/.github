@@ -12,76 +12,51 @@ Dokumen ini mendefinisikan fase dan tahapan pengerjaan untuk melakukan redesain 
 
 Tujuan: Merancang ulang skema database dari `baharwat-schema-only.sql` dengan menerapkan penyesuaian (*adjustment*) tabel, normalisasi (seperti penambahan index, *full-text index*), dan standarisasi prefix baru.
 
-### Langkah 1.1: Pemisahan & Redesain ERD ALPALHAN (ALP)
+### Langkah 1.1: Pemisahan & Redesain ERD ALPALHAN (ALP) [SELESAI]
 * **Target File:** [docs/database/erd-alp.md](file:///d:/dev/sysinfo-harwat/.github/docs/database/erd-alp.md)
-* **Aktivitas:**
-  * Ekstrak tabel `alpalhan_new_*` dan rancang ulang menjadi `alp_*`.
-  * Lakukan optimasi indexing (indeks komposit untuk pencarian, indeks kolom asing) dan *full-text index* pada kolom teks/keterangan yang sering dicari.
-  * Lakukan *adjustment* tipe data dan relasi agar struktur tabel lebih efisien dibanding skema monolit asal.
-  * Dokumentasikan rancangan dalam format Mermaid ERD beserta detail kolom dan tipe data baru.
 
-### Langkah 1.2: Pemisahan & Redesain ERD SARHAN (SAR)
+### Langkah 1.2: Pemisahan & Redesain ERD SARHAN (SAR) [SELESAI]
 * **Target File:** [docs/database/erd-sar.md](file:///d:/dev/sysinfo-harwat/.github/docs/database/erd-sar.md)
-* **Aktivitas:**
-  * Ekstrak tabel `sarhan_new_*` dan rancang ulang menjadi `sar_*`.
-  * Optimasi indexing pada pencarian aset dan riwayat.
-  * *Adjustment* relasi unit organisasi agar representasi pohon (*tree*) lebih efisien.
-  * Dokumentasikan rancangan dalam format Mermaid ERD.
 
-### Langkah 1.3: Pemisahan & Redesain ERD FARHAN (FAR)
+### Langkah 1.3: Pemisahan & Redesain ERD FARHAN (FAR) [SELESAI]
 * **Target File:** [docs/database/erd-far.md](file:///d:/dev/sysinfo-harwat/.github/docs/database/erd-far.md)
-* **Aktivitas:**
-  * Ekstrak tabel `farhan_new_*` dan rancang ulang menjadi `far_*` (skema ini sangat besar dengan 63 tabel, memerlukan strukturisasi modular).
-  * Optimasi indeks pada tabel audit log, batch CPB, dan relasi logistik.
-  * Dokumentasikan rancangan dalam format Mermaid ERD.
 
-### Langkah 1.4: Redesain Skema Bersama (Shared/Core)
+### Langkah 1.4: Redesain Skema Bersama (Shared/Core) [SELESAI]
 * **Target File:** [docs/database/erd-shared.md](file:///d:/dev/sysinfo-harwat/.github/docs/database/erd-shared.md)
-* **Aktivitas:**
-  * Redesain tabel core seperti `users`, `notifications`, `cache` dengan prefix `shared_*` (seperti `shared_users`, `shared_notifications`).
-  * Optimasi indeks pencarian pengguna dan notifikasi.
-  * Hubungkan relasi foreign key dari domain ALP, SAR, dan FAR ke tabel `shared_*`.
 
-### Langkah 1.5: Review & Bersihkan File Tidak Perlu (Fase 1 Selesai)
-* **Aktivitas:**
-  * Pastikan seluruh file ERD lama/cadangan yang tidak diperlukan dihapus agar tidak membingungkan.
-  * **STOP dan ajajuan review Fase 1 ke pengguna.** Jangan lanjut ke Fase 2 sebelum mendapatkan persetujuan.
+### Langkah 1.5: Review & Bersihkan File Tidak Perlu [SELESAI]
 
 ---
 
-## Fase 2: Diagram Alur Proses Bisnis (BISPRO)
+## Fase 2: Diagram Alur Proses Bisnis (BISPRO) [SELESAI]
 
 Tujuan: Mendokumentasikan alur logika bisnis dan transisi status workflow berdasarkan database baru hasil Fase 1.
 
-### Langkah 2.1: Diagram BISPRO ALPALHAN
+### Langkah 2.1: Diagram BISPRO ALPALHAN [SELESAI]
 * **Target File:** [docs/bispro-diagram-alp.md](file:///d:/dev/sysinfo-harwat/.github/docs/bispro-diagram-alp.md)
-* **Aktivitas:** Menggambarkan sequence diagram dan flowchart transisi status MMS (SPK vs Renbut) serta siklus hidup Work Order di Bengkel.
 
-### Langkah 2.2: Diagram BISPRO SARHAN
+### Langkah 2.2: Diagram BISPRO SARHAN [SELESAI]
 * **Target File:** [docs/bispro-diagram-sar.md](file:///d:/dev/sysinfo-harwat/.github/docs/bispro-diagram-sar.md)
-* **Aktivitas:** Menggambarkan sequence diagram alur penilaian Kotama, alur revisi pengajuan, dan rantai approval RAB.
 
-### Langkah 2.3: Diagram BISPRO FARHAN
+### Langkah 2.3: Diagram BISPRO FARHAN [SELESAI]
 * **Target File:** [docs/bispro-diagram-far.md](file:///d:/dev/sysinfo-harwat/.github/docs/bispro-diagram-far.md)
-* **Aktivitas:** Menggambarkan alur Production Proposal & Bundling, logistik intake, serta status CPB Digital.
 
-### Langkah 2.4: Review & Bersihkan File Tidak Perlu (Fase 2 Selesai)
-* **Aktivitas:**
-  * Bersihkan diagram draf atau file catatan proses bisnis yang tidak terpakai.
-  * **STOP dan ajajuan review Fase 2 ke pengguna.** Jangan lanjut ke Fase 3 sebelum mendapatkan persetujuan.
+### Langkah 2.4: Review & Bersihkan File Tidak Perlu [SELESAI]
 
 ---
 
-## Fase 3: Inisialisasi Scaffolding Proyek & Migrasi Database
+## Fase 3: Inisialisasi Scaffolding Proyek, Migrasi Database, & Docker
 
-Tujuan: Membuat kerangka proyek baru untuk frontend dan backend dengan struktur folder modular, serta menyusun skema migrasi database yang siap pakai.
+Tujuan: Membuat kerangka proyek baru untuk frontend dan backend dengan struktur folder modular, menyusun skema migrasi database yang siap pakai, serta melakukan kontainerisasi (Docker).
 
-### Langkah 3.1: Setup Proyek NestJS Backend
+### Langkah 3.1: Setup Proyek NestJS Backend & Docker Compose
 * **Target Direktori:** [backend-app/](file:///d:/dev/sysinfo-harwat/backend-app/)
 * **Aktivitas:**
   * Inisialisasi NestJS menggunakan Fastify adapter.
   * Setup ORM (TypeORM) dengan konfigurasi koneksi database.
   * Buat struktur modul: `shared`, `alp`, `sar`, `far`.
+  * **[NEW]** Setup `Dockerfile` untuk backend NestJS (multi-stage build).
+  * **[NEW]** Buat `docker-compose.yml` di root workspace untuk menjalankan infrastruktur database (MySQL), cache & queue (Redis), dan storage (MinIO) secara lokal.
 
 ### Langkah 3.2: Implementasi Berkas Migrasi Database (TypeORM Migrations)
 * **Target Direktori:** `backend-app/src/migrations/`
@@ -89,19 +64,17 @@ Tujuan: Membuat kerangka proyek baru untuk frontend dan backend dengan struktur 
   * Membuat berkas migrasi TypeScript per tabel/langkah (`up()` dan `down()`) untuk seluruh tabel `shared_*`, `alp_*`, `sar_*`, dan `far_*` berdasarkan rancangan skema database hasil redesain Fase 1.
   * Memastikan migrasi berjalan sukses secara historis untuk membangun ulang skema database dari awal.
 
-### Langkah 3.3: Setup Proyek Next.js Frontend (Modular Architecture)
+### Langkah 3.3: Setup Proyek Next.js Frontend & Docker
 * **Target Direktori:** [frontend-app/](file:///d:/dev/sysinfo-harwat/frontend-app/)
 * **Aktivitas:**
   * Inisialisasi Next.js menggunakan App Router, TypeScript, dan layout dasar.
-  * Menerapkan struktur folder modular *Domain-Driven* yang memisahkan routing, komponen bersama, dan fitur spesifik domain:
-    * `src/app/` (Hanya berkas routing Next.js Page & Layout, mendelegasikan view ke features).
-    * `src/features/` (Fitur terisolasi per domain bisnis: `alp/`, `sar/`, `far/`, `auth/`. Masing-masing memiliki subfolder `components/`, `hooks/` untuk React Query API calls, `services/`, dan `types/`).
-    * `src/components/` (Komponen presentasional global yang reusable tanpa business logic).
-    * `src/core/` (Konfigurasi global API client, routing, context, dan style).
+  * Menerapkan struktur folder modular *Domain-Driven* yang memisahkan routing, komponen bersama, dan fitur spesifik domain (`src/app/`, `src/features/`, `src/components/`, `src/core/`).
+  * **[NEW]** Setup `Dockerfile` untuk frontend Next.js (multi-stage build).
 
 ### Langkah 3.4: Final Review & Serah Terima (Fase 3 Selesai)
 * **Aktivitas:**
   * Jalankan build check (`npm run build`) pada backend dan frontend.
   * Jalankan uji coba migrasi (`npm run migration:run`).
+  * Uji coba menjalankan seluruh kontainer menggunakan `docker compose up -d` untuk memastikan layanan terintegrasi dengan baik.
   * Hapus seluruh file boilerplate atau file temp yang tidak diperlukan dari inisialisasi framework.
   * **STOP dan ajukan review Fase 3 ke pengguna.**
