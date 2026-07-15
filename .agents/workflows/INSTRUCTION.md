@@ -45,7 +45,7 @@ Tujuan: Merancang ulang skema database dari `baharwat-schema-only.sql` dengan me
 ### Langkah 1.5: Review & Bersihkan File Tidak Perlu (Fase 1 Selesai)
 * **Aktivitas:**
   * Pastikan seluruh file ERD lama/cadangan yang tidak diperlukan dihapus agar tidak membingungkan.
-  * **STOP dan ajukan review Fase 1 ke pengguna.** Jangan lanjut ke Fase 2 sebelum mendapatkan persetujuan.
+  * **STOP dan ajajuan review Fase 1 ke pengguna.** Jangan lanjut ke Fase 2 sebelum mendapatkan persetujuan.
 
 ---
 
@@ -68,16 +68,16 @@ Tujuan: Mendokumentasikan alur logika bisnis dan transisi status workflow berdas
 ### Langkah 2.4: Review & Bersihkan File Tidak Perlu (Fase 2 Selesai)
 * **Aktivitas:**
   * Bersihkan diagram draf atau file catatan proses bisnis yang tidak terpakai.
-  * **STOP dan ajukan review Fase 2 ke pengguna.** Jangan lanjut ke Fase 3 sebelum mendapatkan persetujuan.
+  * **STOP dan ajajuan review Fase 2 ke pengguna.** Jangan lanjut ke Fase 3 sebelum mendapatkan persetujuan.
 
 ---
 
-## Fase 3: Inisialisasi Scaffolding Awal Proyek & Migrasi Database
+## Fase 3: Inisialisasi Scaffolding Proyek & Migrasi Database
 
 Tujuan: Membuat kerangka proyek baru untuk frontend dan backend dengan struktur folder modular, serta menyusun skema migrasi database yang siap pakai.
 
 ### Langkah 3.1: Setup Proyek NestJS Backend
-* **Target Direktori:** [backend-app/](file:///d:/dev/sysinfo-harwat/.github/backend-app/)
+* **Target Direktori:** [backend-app/](file:///d:/dev/sysinfo-harwat/backend-app/)
 * **Aktivitas:**
   * Inisialisasi NestJS menggunakan Fastify adapter.
   * Setup ORM (TypeORM) dengan konfigurasi koneksi database.
@@ -89,11 +89,15 @@ Tujuan: Membuat kerangka proyek baru untuk frontend dan backend dengan struktur 
   * Membuat berkas migrasi TypeScript per tabel/langkah (`up()` dan `down()`) untuk seluruh tabel `shared_*`, `alp_*`, `sar_*`, dan `far_*` berdasarkan rancangan skema database hasil redesain Fase 1.
   * Memastikan migrasi berjalan sukses secara historis untuk membangun ulang skema database dari awal.
 
-### Langkah 3.3: Setup Proyek Next.js Frontend
-* **Target Direktori:** [frontend-app/](file:///d:/dev/sysinfo-harwat/.github/frontend-app/)
+### Langkah 3.3: Setup Proyek Next.js Frontend (Modular Architecture)
+* **Target Direktori:** [frontend-app/](file:///d:/dev/sysinfo-harwat/frontend-app/)
 * **Aktivitas:**
   * Inisialisasi Next.js menggunakan App Router, TypeScript, dan layout dasar.
-  * Buat struktur direktori modular berdasarkan domain bisnis (`features/alp`, `features/sar`, `features/far`).
+  * Menerapkan struktur folder modular *Domain-Driven* yang memisahkan routing, komponen bersama, dan fitur spesifik domain:
+    * `src/app/` (Hanya berkas routing Next.js Page & Layout, mendelegasikan view ke features).
+    * `src/features/` (Fitur terisolasi per domain bisnis: `alp/`, `sar/`, `far/`, `auth/`. Masing-masing memiliki subfolder `components/`, `hooks/` untuk React Query API calls, `services/`, dan `types/`).
+    * `src/components/` (Komponen presentasional global yang reusable tanpa business logic).
+    * `src/core/` (Konfigurasi global API client, routing, context, dan style).
 
 ### Langkah 3.4: Final Review & Serah Terima (Fase 3 Selesai)
 * **Aktivitas:**
