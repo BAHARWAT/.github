@@ -6,7 +6,7 @@ Organisasi ini mengelola ekosistem **Sysinfo Harwat**, sebuah platform manajemen
 
 ---
 
-## Portofolio Repositori
+## Struktur Repositori
 
 Ekosistem Sysinfo Harwat dibagi menjadi tiga repositori utama untuk mendukung skalabilitas, kemudahan pemeliharaan, dan performa tinggi skala nasional:
 
