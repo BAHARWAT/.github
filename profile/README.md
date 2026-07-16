@@ -48,7 +48,7 @@ code sysinfo-harwat.code-workspace
 
 **Antigravity IDE:**
 ```bash
-antigravity sysinfo-harwat.code-workspace
+antigravity-ide sysinfo-harwat.code-workspace
 ```
 
 **JetBrains IDEs (IntelliJ IDEA):**
